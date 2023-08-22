@@ -1,0 +1,10 @@
+{
+  "name": "Document crm mtvan rest-api",
+  "version": "1.0.0",
+  "description": "Author: NamPV",
+  "title": "NodeJS-REST-API",
+  "url": "http://localhost:8000/api",
+  "template": {
+    "forceLanguage": "en"
+  }
+}
