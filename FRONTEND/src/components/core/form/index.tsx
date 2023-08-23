@@ -10,6 +10,7 @@ export interface MyFormProps<T> extends FormProps<T> {
 
 const BaseForm = <Values extends object>(props: MyFormProps<Values>) => {
   const { options, children, ...rest } = props;
+console.log(props);
 
   return (
     <Form<Values> {...rest}>
