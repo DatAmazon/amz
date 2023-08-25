@@ -6,25 +6,24 @@ import { useForm } from 'antd/es/form/Form';
 
 import MinvoiceForm, * as mForm from '../form';
 
-interface FilteredModalProps extends Omit<ModalProps, 'onOk' | 'onCancel'> {}
+interface FilteredModalProps extends Omit<ModalProps, 'onOk' | 'onCancel'> { }
 
 export interface MyModalProps<FormValues> extends FilteredModalProps {
   form?: FormValues;
   formProps?: FormProps<FormValues>;
-  options?: mForm.MyFormProps<FormValues>;
+  fieldOptions?: mForm.MyFormOptions;
   children?: React.ReactNode;
   onClose?: (formData?: FormValues) => any;
 }
 
 const BaseModal = <FormValues extends object>(props: MyModalProps<FormValues>) => {
-  const { form, formProps, children, onClose, ...rest } = props;
+  const { form, formProps, children, onClose, fieldOptions, ...rest } = props;
   const [formInstance] = useForm<FormValues>();
-console.log(form);
-console.log(formInstance);
-console.log(formProps);
+
   const onOk = async () => {
     if (form) {
       const data = await formInstance.validateFields();
+      console.log(data);  console.log(form);
       onClose && onClose(data);
     } else {
       onClose && onClose();
@@ -34,7 +33,7 @@ console.log(formProps);
   return (
     <Modal {...rest} onCancel={() => onClose?.()} onOk={onOk}>
       {form ? (
-        <MinvoiceForm {...formProps} form={formInstance}>
+        <MinvoiceForm {...formProps} fieldOptions={fieldOptions} form={formInstance}>
           {children}
         </MinvoiceForm>
       ) : (

@@ -1,39 +1,27 @@
 import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
-import { Space, Tag, Popconfirm, Modal, Input, Form } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-// import MinvoiceButton from '@/components/basic/button';
-import MinvoiceTable from '@/components/core/table';
-import { apiGetUsers } from '@/api/system/users-api';
-import { useLocale } from '@/locales';
-import MinvoiceModal, * as mModal from '@/components/core/modal';
-import type { FormProps } from 'antd/es/form';
 import type { UserData, GetDataParram, docsUser } from '../../interface/user/user.interface';
-import {
-  EditOutlined,
-  DeleteOutlined
-} from '@ant-design/icons';
-const { Column, ColumnGroup } = MinvoiceTable;
+import { useEffect, useState } from 'react';
+import { Tag, Popconfirm, Checkbox, message as $message } from 'antd';
+import { apiGetUsers, apiDeleteUsers } from '@/api/system/users-api';
+import { useLocale } from '@/locales';
+import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import UserFormModal from './user-form';
+import MinvoiceTable from '@/components/core/table';
+import MinvoiceButton from '@/components/basic/button';
+import './index.less';
 
 interface UserColumnType {
   _id: string;
   username: String;
   name: String;
   email: String;
-  active: Boolean;
-  role: String;
-}
-type FormValues = {
-  _id?: string;
-  username: String;
-  name: String;
-  email: String;
-  active: Boolean;
+  active: boolean;
   role: String;
 }
 const UserTalbePage: FC = () => {
   const [loading, setLoading] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
   const [userData, setUserData] = useState<UserData>();
   const [entities, setEntities] = useState<docsUser[]>([]);
   const { formatMessage } = useLocale();
@@ -50,15 +38,24 @@ const UserTalbePage: FC = () => {
     status && setEntities(result.docs);
   };
 
-  const onDelete = (record: any) => {
-    console.log(record);
+  const toggleModal = () => {
+    setIsShowModal(!isShowModal);
   }
+
+  const onDelete = async (id: any) => {
+    const { status, result } = await apiDeleteUsers(id);
+    status && $message.success("Xóa thành công tài khoản");
+    status && await getData();
+  }
+
   const onEdit = (record: any) => {
-    setIsEditing(true);
+    toggleModal();
   };
-  const resetEditing = () => {
-    setIsEditing(false);
+
+  const onAdd = () => {
+    toggleModal();
   };
+
   useEffect(() => {
     getData();
   }, []);
@@ -76,66 +73,26 @@ const UserTalbePage: FC = () => {
     { title: 'Username', dataIndex: 'username', key: 'username', render: (text) => <a>{text}</a>, },
     { title: 'Email', dataIndex: 'email', key: 'email', },
     {
-      title: 'Role', dataIndex: 'role', key: 'role', render: (_, { role }) => (
-        <>
-          <Tag color={role.toString().includes("user") ? 'geekblue' : 'green'} >{role}</Tag>
-        </>
-      )
+      title: 'Role', dataIndex: 'role', key: 'role', render:
+        (_, { role }) => <><Tag color={role.toString().includes("user") ? 'geekblue' : 'green'} >{role}</Tag></>
     },
+    {
+      title: 'Active', dataIndex: 'active', key: 'active', render:
+        (_, { active }) => <><Checkbox checked={active ?? false}></Checkbox></>
+    }
   ]
-
-  const frm: FormProps<object> =
-  {
-    name: "namdaica",
-    labelAlign: "left",
-  }
-  const datav: FormValues = {
-    active: true,
-    email: "ccc",
-    name: "nampv",
-    username: "1812",
-    role: "admin"
-  }
-  const child: React.ReactNode = [
-    <>
-      <Form.Item name="note" label="Note" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-    </>
-  ];
-  // {
-  //   title: 'Actions', dataIndex: 'actions', key: 'actions', render: (_, { _id }) =>
-  //     <>
-  //       <EditOutlined onClick={() => onEdit(_id)} />
-  //       <Popconfirm title={`${formatMessage({ id: 'user.delete', })}`} onConfirm={() => onDelete(_id)}>
-  //         <DeleteOutlined style={{ color: "red", marginLeft: 12 }} />
-  //       </Popconfirm>
-  //     </>
-  // },
-  // { title: 'Username', dataIndex: 'username', key: 'username', render: (text) => <a>{text}</a>, },
-  // { title: 'Email', dataIndex: 'email', key: 'email', },
-  // {
-  //   title: 'Role', dataIndex: 'role', key: 'role', render: (_, { role }) => (
-  //     <>
-  //       <Tag color={role.toString().includes("user") ? 'geekblue' : 'green'} >{role}</Tag>
-  //     </>
-  //   )
-  // },
 
   return (
     <div className="user-data">
-      <MinvoiceTable<UserColumnType> dataSource={entities == undefined ? [] : entities} loading={loading} rowKey={record => record._id} columns={columns}>
+      <MinvoiceButton onClick={onAdd} className='button-user'>Thêm mới</MinvoiceButton>
+      <MinvoiceButton onClick={getData}>Tải lại</MinvoiceButton>
+      <MinvoiceTable<UserColumnType>
+        dataSource={entities == undefined ? [] : entities}
+        loading={loading}
+        rowKey={record => record._id}
+        columns={columns}>
       </MinvoiceTable>
-      <MinvoiceModal visible={isEditing} formProps={frm} onClose={resetEditing} children={child}></MinvoiceModal>
-      {/* <Modal
-        title="Edit Student"
-        visible={isEditing}
-        okText="Save"
-        onCancel={() => { resetEditing(); }}
-        onOk={() => { resetEditing(); }}
-      >
-        <Input title='Username' />
-      </Modal> */}
+      <UserFormModal isShowModal={isShowModal} onClose={toggleModal}></UserFormModal>
     </div>
   );
 };

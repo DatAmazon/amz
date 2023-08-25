@@ -26,7 +26,7 @@ axiosInstance.interceptors.request.use(
     console.log(store.getState());
     store.dispatch(setGlobalState({ loading: true, }),);
     const authToken = localStorage.getItem('jwt');
-    if (authToken && config) config.headers!.Authorization  = `Bearer ${authToken}`;
+    if (authToken && config) config.headers!.Authorization = `Bearer ${authToken}`;
     return config;
   },
   error => {
@@ -37,7 +37,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   config => {
-    store.dispatch(setGlobalState({ loading: false, }),);   
+    store.dispatch(setGlobalState({ loading: false, }),);
     return {
       status: true,
       message: null,
@@ -81,9 +81,26 @@ export const request = <T = any>(
   config?: AxiosRequestConfig,
 ): MyResponse<T> => {
   // const prefix = '/api'
+  let response = new Promise<Response<T>>(function (resolve, reject) {
+    // your logic goes here ..
+  });
   const prefix = ''; url = prefix + url;
-  if (method === 'post')
-    return axiosInstance.post(url, data, config);
-  else
-    return axiosInstance.get(url, { params: data, ...config, });
+  switch (method) {
+    case 'post':
+      response = axiosInstance.post(url, data, config);
+      break;
+    case 'delete':
+      response = axiosInstance.delete(url, { params: data, ...config, });
+      break;
+    default:
+      response = axiosInstance.get(url, { params: data, ...config, });
+      break;
+  }
+  // if (method === 'post')
+  //   return axiosInstance.post(url, data, config);
+  // else if (method === 'delete')
+  //   return axiosInstance.delete(url, { params: data, ...config, });
+  // else
+  //   return axiosInstance.get(url, { params: data, ...config, });
+  return response;
 };

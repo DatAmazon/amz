@@ -18,23 +18,23 @@ type InnerProps = {
   select: GetRCPropsType<typeof Select>;
 };
 
-export interface MyFormItemProps<T extends ControlTypes = ControlTypes> extends Omit<FormItemProps, 'required'> {
+export interface MinvoiceFormItemProps<T extends ControlTypes = ControlTypes> extends Omit<FormItemProps, 'required'> {
   type?: T;
-  /** 支持 options 的控件如 select checkbox radio 等，非必填 **/
+  /** Các items cần dùng options, chẳng hạn như radio, checkbox, v.v., tùy chọn **/
   options?: {
     label: string;
     value: any;
     disabled?: boolean;
   }[];
-  /** 控件内部属性，非必填 **/
+  /** Thuộc tính bên trong của items(<Input innerProps>, <Checkbox innerProps> .....), tùy chọn **/
   innerProps?: InnerProps[T];
   required?: string | boolean;
 }
 
 export class ControlMap {
-  props: MyFormItemProps;
+  props: MinvoiceFormItemProps;
 
-  constructor(props: MyFormItemProps) {
+  constructor(props: MinvoiceFormItemProps) {
     this.props = props;
   }
 
@@ -74,22 +74,21 @@ export class ControlMap {
   }
 }
 
-const MyformItem: FC<MyFormItemProps> = props => {
-  // 取出我们自定义的参数，其余的全部原封不动的还给 `Form.Item`
-  // type: 用于我们判断外面传进来的控件类型我们再渲染好了直接生成出来
-  // children: 因为我们需要自定义 `Form.Item` 的子元素了，如果不取出来但父组件又提供的话会发生冲突
+const MinvoiceformItem: FC<MinvoiceFormItemProps> = props => {
+  // Lấy ra các tham số tùy chỉnh của chúng tôi và trả lại phần còn lại cho `Form.Item` nguyên vẹn
+  // type: Nó được sử dụng để chúng ta đánh giá loại điều khiển được truyền vào từ bên ngoài, chúng ta sẽ kết xuất và tạo ra nó một cách trực tiếp
+  // children: Vì chúng ta cần tùy chỉnh các phần tử con của `Form.Item` nên nếu nó không được lấy ra mà được thành phần cha mẹ cung cấp thì sẽ xảy ra xung đột
   const { type, required, rules: userRules, ...restProps } = props;
 
   const rules = useMemo(() => {
-    // 如果设置了 rules 属性，说明用户需要完全自定义 rules，不仅仅是必填
+    // Nếu đặt rules 
     if (userRules) return userRules;
-
-    // 如果设置了 required 属性
+    // Nếu đặt required
     if (required) {
       if (typeof required === 'boolean') {
-        return [{ required: true, message: `请输入${props.label}` }];
+        return [{ required: true, message: `${props.label} là trường bắt buộc nhập dữ liệu` }];
       }
-      // 自定义 required 文案
+      // Tùy chỉnh required cần thiết
       else if (typeof required === 'string') {
         return [{ required: true, message: required }];
       }
@@ -106,4 +105,4 @@ const MyformItem: FC<MyFormItemProps> = props => {
   );
 };
 
-export default MyformItem;
+export default MinvoiceformItem;

@@ -14,7 +14,7 @@ const MinvoiceTable = <T extends object = object>(props: MinvoiceTableProps<T>) 
     showQuickJumper: true,
     showSizeChanger: true,
     pageSizeOptions: ['10', '20', '50', '100', '200'],
-    defaultPageSize: 20,
+    defaultPageSize: 20
   };
   const combinedPagination = typeof pagination === 'object' ? { ...defaultPagination, ...pagination } : {};
 

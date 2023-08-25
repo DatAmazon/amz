@@ -28,7 +28,7 @@ export interface docsUser {
   username: String;
   name: String;
   email: String;
-  active: Boolean;
+  active: boolean;
   role: String;
 }
 export interface UserData {
