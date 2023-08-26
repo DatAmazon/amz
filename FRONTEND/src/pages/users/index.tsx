@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import type { ColumnsType } from 'antd/es/table';
-import type { UserData, GetDataParram, docsUser } from '../../interface/user/user.interface';
+import type { UserData, ModelGetData, docsUser } from '../../interface/user/user.interface';
 import { useEffect, useState } from 'react';
 import { Tag, Popconfirm, Checkbox, message as $message } from 'antd';
 import { apiGetUsers, apiDeleteUsers } from '@/api/system/users-api';
@@ -24,8 +24,9 @@ const UserTalbePage: FC = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [userData, setUserData] = useState<UserData>();
   const [entities, setEntities] = useState<docsUser[]>([]);
+  const [editMode, setEditMode] = useState(1);
   const { formatMessage } = useLocale();
-  const initialValues: GetDataParram = {
+  const initialValues: ModelGetData = {
     page: 0,
     size: 20,
     // remember: true
@@ -42,19 +43,21 @@ const UserTalbePage: FC = () => {
     setIsShowModal(!isShowModal);
   }
 
+  const onAdd = () => {
+    setEditMode(1);
+    toggleModal();
+  };
+
+  const onEdit = (record: any) => {
+    setEditMode(2);
+    toggleModal();
+  };
+
   const onDelete = async (id: any) => {
     const { status, result } = await apiDeleteUsers(id);
     status && $message.success("Xóa thành công tài khoản");
     status && await getData();
   }
-
-  const onEdit = (record: any) => {
-    toggleModal();
-  };
-
-  const onAdd = () => {
-    toggleModal();
-  };
 
   useEffect(() => {
     getData();
@@ -92,7 +95,7 @@ const UserTalbePage: FC = () => {
         rowKey={record => record._id}
         columns={columns}>
       </MinvoiceTable>
-      <UserFormModal isShowModal={isShowModal} onClose={toggleModal}></UserFormModal>
+      <UserFormModal isShowModal={isShowModal} onClose={toggleModal} editMode={editMode} ></UserFormModal>
     </div>
   );
 };

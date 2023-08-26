@@ -6,10 +6,9 @@ const moment = require('moment');
 const { APIError } = require('../../../extensions/response-pattern');
 const {
   ROLES, DEFAULT_IMAGE,
+  USER,
   LOGIN,
   STATUS,
-  EMAIL_EXIST,
-  USER_EXIST,
   VALIDATION_ERROR
 } = require('../../../extensions/constants-manager');
 const { saltRound, jwtExpirationInterval, jwtSecret } = require('../../../config/configuration-env');
@@ -154,16 +153,16 @@ UserModel.statics = {
       }
       if (keys.includes('username')) {
         return new APIError({
-          message: USER_EXIST,
+          message: USER.EXIST_USER,
           status: STATUS.BAD_REQUEST,
-          errors: [{ field: 'username', location: 'body', messages: 'username is already in use', }],
+          errors: [{ field: 'username', location: 'body', messages: USER.EXIST_USER, }],
         });
       }
       if (keys.includes('email')) {
         return new APIError({
-          message: EMAIL_EXIST,
+          message: USER.EXIST_EMAIL,
           status: STATUS.BAD_REQUEST,
-          errors: [{ field: 'email', location: 'body', messages: 'Email is already in use', }],
+          errors: [{ field: 'email', location: 'body', messages: USER.EXIST_EMAIL }],
         });
       }
     }

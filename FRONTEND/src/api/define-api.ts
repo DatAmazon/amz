@@ -17,9 +17,11 @@ export const ApiDefine = {
   LOG_IN: "auth/login",
   LOG_OUT: "auth/logout",
   MENU : "menus",
-  USER : "users",
-  USER_CREATE : "users",
-  USER_UPDATE : "users",
-  USER_DELETE : "users",
+  USER : {
+    CREATE:"users",
+    UPDATE:"",
+    DELETE:"users",
+    GET_DATA:"users"
+  },
   NOTICE : "users/notice",
 }

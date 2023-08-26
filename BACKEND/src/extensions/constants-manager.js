@@ -25,16 +25,17 @@ module.exports = {
   LOGIN: {
     INVALID_CREDENTIALS: 'Tài khoản hoặc mật khẩu không đúng.',
   },
+  USER: {
+    EXIST_USER: "Username is already in use",
+    EXIST_EMAIL: "Email is already in use"
+  },
   // API Defaults
   ROLES: ['user', 'admin'],
   ADMIN: 'admin',
   LOGGED_IN: 'logged_in',
-  USER: 'user',
   DEFAULT_IMAGE: 'default.jpg',
   // Messages
   NO_RECORD_FOUND: 'No record found for given details',
   VALIDATION_ERROR: 'Validation Error',
-  EMAIL_EXIST: 'Email is already in use by another account',
-  USER_EXIST: 'Username is already',
   INVALID_FILE_TYPE: 'Invalid file type',
 };

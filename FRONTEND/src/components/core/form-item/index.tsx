@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { Checkbox, DatePicker, Form, Input, InputNumber, Radio, Select, Switch } from 'antd';
 import React, { useMemo } from 'react';
 
-export type ControlTypes = 'input' | 'input-number' | 'switch' | 'date-picker' | 'checkbox' | 'radio' | 'select';
+export type ControlTypes = 'input' | 'input-number' | 'switch' | 'date-picker' | 'checkbox' | 'checkbox-group' | 'radio' | 'select' ;
 
 type GetRCPropsType<T> = T extends (props: infer R) => any ? R : T extends React.ComponentClass<infer R> ? R : any;
 
@@ -14,6 +14,7 @@ type InnerProps = {
   switch: GetRCPropsType<typeof Switch>;
   'date-picker': GetRCPropsType<typeof DatePicker>;
   checkbox: GetRCPropsType<typeof Checkbox>;
+  'checkbox-group': GetRCPropsType<typeof Checkbox>;
   radio: GetRCPropsType<typeof Radio>;
   select: GetRCPropsType<typeof Select>;
 };
@@ -59,6 +60,11 @@ export class ControlMap {
   }
 
   checkbox() {
+    // highlight-next-line
+    return <Checkbox children={this.props.children} {...this.innerProps} />;
+  }
+
+  'checkbox-group'() {
     // highlight-next-line
     return <Checkbox.Group children={this.props.children} options={this.props.options} {...this.innerProps} />;
   }

@@ -41,9 +41,18 @@ export interface UserData {
   pagingCounter: Number
 }
 
-export interface GetDataParram {
+export interface ModelGetData {
   page: Number;
   size: Number;
   email?: String;
   name?: String;
+}
+
+export interface ModelCreate {
+  username: string,
+  name: string,
+  email: string,
+  password: string,
+  role?: string,
+  active?: boolean
 }

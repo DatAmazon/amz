@@ -46,12 +46,14 @@ axiosInstance.interceptors.response.use(
   },
   error => {
     store.dispatch(setGlobalState({ loading: false, }),);
+    if (error?.response?.status === 401) window.location.replace('/login');
+    
     // if needs to navigate to login page when request exception
     let errorMessage = 'Ngoại lệ hệ thống';
     if (error?.message?.includes('Network Error')) errorMessage = 'Lỗi mạng, vui lòng kiểm tra mạng của bạn';
-    else errorMessage = error?.response?.data.message;
+    else errorMessage = error?.response?.data.message + "\n" + error?.response?.data.errors[0].messages;
     error.message && $message.error(errorMessage);
-    if (error?.response?.status === 401) window.location.replace('/login');
+    
     return {
       status: false,
       message: errorMessage,
