@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import type { ColumnsType } from 'antd/es/table';
-import type { UserData, ModelGetData, docsUser } from '../../interface/user/user.interface';
+import type { UserData, ModelGetData, docsUser, ModelUser } from '../../interface/user/user.interface';
 import { useEffect, useState } from 'react';
 import { Tag, Popconfirm, Checkbox, message as $message } from 'antd';
 import { apiGetUsers, apiDeleteUsers } from '@/api/system/users-api';
@@ -24,19 +24,29 @@ const UserTalbePage: FC = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [userData, setUserData] = useState<UserData>();
   const [entities, setEntities] = useState<docsUser[]>([]);
+  const [userRecord, setUserRecord] = useState<ModelUser>();
   const [editMode, setEditMode] = useState(1);
+  const [pageSize, setPageSize] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalRowsCount, setTotalRowsCount] = useState<number>();
   const { formatMessage } = useLocale();
-  const initialValues: ModelGetData = {
-    page: 0,
-    size: 20,
-    // remember: true
-  };
-  const getData = async () => {
+
+  const getData = async (varPage: number, varPageSize: number) => {
+    const initialValues: ModelGetData = {
+      page: varPage,
+      size: varPageSize,
+      // remember: true
+    };
     setLoading(true);
     const { status, result } = await apiGetUsers(initialValues);
     setLoading(false);
+    status && setTotalRowsCount(result.totalDocs);
     status && setUserData(result);
     status && setEntities(result.docs);
+  };
+
+  const changePage = (varPage: number, varPageSize: number) => {
+    getData(varPage, varPageSize);
   };
 
   const toggleModal = () => {
@@ -44,31 +54,40 @@ const UserTalbePage: FC = () => {
   }
 
   const onAdd = () => {
+    const initialValues: ModelUser = {
+      username: "",
+      password: "",
+      email: "",
+      name: "",
+      active: false
+    };
+    setUserRecord(initialValues);
     setEditMode(1);
     toggleModal();
   };
 
   const onEdit = (record: any) => {
+    setUserRecord(record);
     setEditMode(2);
     toggleModal();
   };
 
   const onDelete = async (id: any) => {
     const { status, result } = await apiDeleteUsers(id);
-    status && $message.success("Xóa thành công tài khoản");
-    status && await getData();
+    status && $message.success(formatMessage({ id: 'user.delete.success' }));
+    status && await getData(0, pageSize);
   }
 
   useEffect(() => {
-    getData();
+    getData(0, pageSize);
   }, []);
 
   const columns: ColumnsType<UserColumnType> = [
     {
-      title: 'Actions', dataIndex: 'actions', key: 'actions', render: (_, { _id }) =>
+      title: 'Actions', dataIndex: 'actions', key: 'actions', render: (_, record) =>
         <>
-          <EditOutlined onClick={() => onEdit(_id)} />
-          <Popconfirm title={`${formatMessage({ id: 'user.delete', })}`} onConfirm={() => onDelete(_id)}>
+          <EditOutlined onClick={() => onEdit(record)} />
+          <Popconfirm title={`${formatMessage({ id: 'user.delete', })}`} onConfirm={() => onDelete(record._id)}>
             <DeleteOutlined style={{ color: "red", marginLeft: 12 }} />
           </Popconfirm>
         </>
@@ -88,14 +107,22 @@ const UserTalbePage: FC = () => {
   return (
     <div className="user-data">
       <MinvoiceButton onClick={onAdd} className='button-user'>Thêm mới</MinvoiceButton>
-      <MinvoiceButton onClick={getData}>Tải lại</MinvoiceButton>
+      <MinvoiceButton onClick={() => getData(0, pageSize)}>Tải lại</MinvoiceButton>
       <MinvoiceTable<UserColumnType>
         dataSource={entities == undefined ? [] : entities}
         loading={loading}
         rowKey={record => record._id}
-        columns={columns}>
+        columns={columns}
+        pagination={{
+          size: "default",
+          pageSize: pageSize,
+          showTotal: (total, range) => `Từ ${range[0]}-${range[1]} tổng số ${total} bản ghi`,
+          onChange: changePage,
+          total: totalRowsCount,
+          showSizeChanger: true
+        }}>
       </MinvoiceTable>
-      <UserFormModal isShowModal={isShowModal} onClose={toggleModal} editMode={editMode} ></UserFormModal>
+      <UserFormModal isShowModal={isShowModal} onClose={toggleModal} editMode={editMode} userRecord={userRecord} ></UserFormModal>
     </div>
   );
 };

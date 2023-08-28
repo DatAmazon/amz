@@ -47,13 +47,13 @@ axiosInstance.interceptors.response.use(
   error => {
     store.dispatch(setGlobalState({ loading: false, }),);
     if (error?.response?.status === 401) window.location.replace('/login');
-    
+
     // if needs to navigate to login page when request exception
     let errorMessage = 'Ngoại lệ hệ thống';
     if (error?.message?.includes('Network Error')) errorMessage = 'Lỗi mạng, vui lòng kiểm tra mạng của bạn';
     else errorMessage = error?.response?.data.message + "\n" + error?.response?.data.errors[0].messages;
     error.message && $message.error(errorMessage);
-    
+
     return {
       status: false,
       message: errorMessage,
@@ -93,6 +93,9 @@ export const request = <T = any>(
       break;
     case 'delete':
       response = axiosInstance.delete(url, { params: data, ...config, });
+      break;
+    case 'put':
+      response = axiosInstance.put(url, data, config);
       break;
     default:
       response = axiosInstance.get(url, { params: data, ...config, });

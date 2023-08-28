@@ -13,19 +13,20 @@ export interface MyModalProps<FormValues> extends FilteredModalProps {
   formProps?: FormProps<FormValues>;
   fieldOptions?: mForm.MyFormOptions;
   formInstance?: any,
+  initValues?: any,
   children?: React.ReactNode;
   onClose?: (formData?: FormValues) => any;
   onOk?: (formData?: FormValues) => any;
 }
 
 const BaseModal = <FormValues extends object>(props: MyModalProps<FormValues>) => {
-  const { form, formProps, children, onClose, onOk, fieldOptions, formInstance, ...rest } = props;
+  const { form, formProps, children, onClose, onOk, fieldOptions, formInstance, initValues, ...rest } = props;
 
   /**form=FormInstance form control được tạo bởi Form.useForm(). Tự động tạo khi không được cung cấp*/
   return (
-    <Modal {...rest} onCancel={() => onClose?.()} onOk={() => onOk?.()}>
+    <Modal forceRender okText="Lưu" cancelText="Hủy bỏ" {...rest} onCancel={() => onClose?.()} onOk={() => onOk?.()}>
       {form ? (
-        <MinvoiceForm {...formProps} fieldOptions={fieldOptions} form={formInstance}>
+        <MinvoiceForm initialValues={initValues} {...formProps} fieldOptions={fieldOptions} form={formInstance}>
           {children}
         </MinvoiceForm>
       ) : (

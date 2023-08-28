@@ -33,7 +33,7 @@ export interface docsUser {
 }
 export interface UserData {
   docs: docsUser[];
-  totalDocs: Number;
+  totalDocs: number;
   offset: Number;
   limit: Number;
   totalPages: Number;
@@ -48,11 +48,26 @@ export interface ModelGetData {
   name?: String;
 }
 
-export interface ModelCreate {
+export interface ModelUser {
+  _id?: string,
   username: string,
   name: string,
   email: string,
   password: string,
   role?: string,
   active?: boolean
+}
+
+export interface ModelUserById {
+  code: number,
+  message: string,
+  data: {
+    _id?: string,
+    username: string,
+    name: string,
+    email: string,
+    password: string,
+    role?: string,
+    active?: boolean
+  }
 }

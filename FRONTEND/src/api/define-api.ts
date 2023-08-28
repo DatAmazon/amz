@@ -19,7 +19,7 @@ export const ApiDefine = {
   MENU : "menus",
   USER : {
     CREATE:"users",
-    UPDATE:"",
+    UPDATE:"users",
     DELETE:"users",
     GET_DATA:"users"
   },
