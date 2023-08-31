@@ -96,44 +96,49 @@ const LayoutPage: FC = () => {
 
   return (
     <Layout className="layout-page">
-      <HeaderComponent collapsed={collapsed} toggle={toggle} />
+
+      {/* <Layout> */}
+
+      {!isMobile ? (
+        <Sider
+          className="layout-page-sider"
+          trigger={null}
+          collapsible
+          style={{ backgroundColor: token.token.colorBgContainer }}
+          collapsedWidth={isMobile ? 0 : 80}
+          collapsed={collapsed}
+          breakpoint="md"
+        >
+          <MenuComponent collapsed={collapsed} toggle={toggle}
+            menuList={menuList}
+            openKey={openKey}
+            onChangeOpenKey={k => setOpenkey(k)}
+            selectedKey={selectedKey}
+            onChangeSelectedKey={k => setSelectedKey(k)}
+          />
+        </Sider>
+      ) : (
+        <Drawer
+          width="200"
+          placement="left"
+          bodyStyle={{ padding: 0, height: '100%' }}
+          closable={false}
+          onClose={toggle}
+          open={!collapsed}
+        >
+          <MenuComponent collapsed={collapsed} toggle={toggle}
+            menuList={menuList}
+            openKey={openKey}
+            onChangeOpenKey={k => setOpenkey(k)}
+            selectedKey={selectedKey}
+            onChangeSelectedKey={k => setSelectedKey(k)}
+          />
+        </Drawer>
+      )}
+
+      {/* </Layout> */}
       <Layout>
-        {!isMobile ? (
-          <Sider
-            className="layout-page-sider"
-            trigger={null}
-            collapsible
-            style={{ backgroundColor: token.token.colorBgContainer }}
-            collapsedWidth={isMobile ? 0 : 80}
-            collapsed={collapsed}
-            breakpoint="md"
-          >
-            <MenuComponent
-              menuList={menuList}
-              openKey={openKey}
-              onChangeOpenKey={k => setOpenkey(k)}
-              selectedKey={selectedKey}
-              onChangeSelectedKey={k => setSelectedKey(k)}
-            />
-          </Sider>
-        ) : (
-          <Drawer
-            width="200"
-            placement="left"
-            bodyStyle={{ padding: 0, height: '100%' }}
-            closable={false}
-            onClose={toggle}
-            open={!collapsed}
-          >
-            <MenuComponent
-              menuList={menuList}
-              openKey={openKey}
-              onChangeOpenKey={k => setOpenkey(k)}
-              selectedKey={selectedKey}
-              onChangeSelectedKey={k => setSelectedKey(k)}
-            />
-          </Drawer>
-        )}
+        <HeaderComponent collapsed={collapsed} toggle={toggle} />
         <Content className="layout-page-content">
           <TagsView />
           <Suspense fallback={null}>

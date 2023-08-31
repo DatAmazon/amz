@@ -2,14 +2,13 @@ import type { LoginParams } from '@/interface/user/login.interface';
 import type { FC } from 'react';
 
 import './index.less';
-
+import MinvoiceLogo from '@/assets/logo/minvoice_vertical.svg';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { LocaleFormatter, useLocale } from '@/locales';
 import { formatSearch } from '@/utils/format-search';
-
 import { loginAsync } from '../../stores/users/user.action';
 
 const initialValues: LoginParams = {
@@ -36,7 +35,7 @@ const LoginForm: FC = () => {
   return (
     <div className="login-page">
       <Form<LoginParams> onFinish={onFinished} className="login-page-form" initialValues={initialValues}>
-        <h2>Đăng nhập</h2>
+        <img src={MinvoiceLogo} width={220} height={160} alt="" />
         <Form.Item name="username" rules={[{ required: true, message: formatMessage({ id: 'gloabal.tips.enterUsernameMessage', }), },]}>
           <Input placeholder={formatMessage({ id: 'gloabal.tips.username', })} />
         </Form.Item>

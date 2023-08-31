@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { LogoutOutlined, MenuFoldOutlined, MenuUnfoldOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, theme as antTheme, Tooltip } from 'antd';
 import { createElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,8 +12,7 @@ import { ReactComponent as LanguageSvg } from '@/assets/header/language.svg';
 import { ReactComponent as MoonSvg } from '@/assets/header/moon.svg';
 import { ReactComponent as SunSvg } from '@/assets/header/sun.svg';
 import { ReactComponent as ZhCnSvg } from '@/assets/header/zh_CN.svg';
-import AntdSvg from '@/assets/logo/antd.svg';
-import ReactSvg from '@/assets/logo/react.svg';
+import MinvoiceLogo from '@/assets/logo/minvoice_horizontal.svg';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { setGlobalState } from '@/stores/systems/global.store';
 import { setUserItem } from '@/stores/users/user.store';
@@ -73,16 +72,16 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
 
   return (
     <Header className="layout-page-header bg-2" style={{ backgroundColor: token.token.colorBgContainer }}>
-      {device !== 'MOBILE' && (
+      {/* {device !== 'MOBILE' && (
         <div className="logo" style={{ width: collapsed ? 80 : 200 }}>
-          <img src={ReactSvg} alt="" style={{ marginRight: collapsed ? '2px' : '20px' }} />
-          <img src={AntdSvg} alt="" />
+          <img src={MinvoiceLogo} alt="" style={{ marginRight: collapsed ? '2px' : '20px' }} />
         </div>
-      )}
+      )} */}
       <div className="layout-page-header-main">
-        <div onClick={toggle}>
-          <span id="sidebar-trigger">{collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}</span>
-        </div>
+        <div></div>
+        {/* <div onClick={toggle}>
+          <span id="sidebar-trigger">{collapsed ? <MenuOutlined /> : <MenuOutlined />}</span>
+        </div> */}
         <div className="actions">
           <Tooltip
             title={formatMessage({
