@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { addTag, removeTag, setActiveTag } from '@/stores/systems/tagsView.store';
 
 import TagsViewAction from './tagViewAction';
+import './index.less';
 
 const TagsView: FC = () => {
   const { tags, activeTagId } = useSelector(state => state.tagsView);
@@ -69,6 +70,7 @@ const TagsView: FC = () => {
   return (
     <div id="pageTabs" style={{ padding: '6px 4px' }}>
       <Tabs
+        className='tabs-header'
         tabBarStyle={{ margin: 0 }}
         onChange={onChange}
         activeKey={activeTagId}
@@ -80,7 +82,7 @@ const TagsView: FC = () => {
           return {
             key: tag.menuPath,
             closable: tag.closable,
-            label: tag.menuName[locale],
+            label: tag.menuName[locale]
           };
         })}
       />

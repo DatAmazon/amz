@@ -12,7 +12,6 @@ import { ReactComponent as LanguageSvg } from '@/assets/header/language.svg';
 import { ReactComponent as MoonSvg } from '@/assets/header/moon.svg';
 import { ReactComponent as SunSvg } from '@/assets/header/sun.svg';
 import { ReactComponent as ZhCnSvg } from '@/assets/header/zh_CN.svg';
-import MinvoiceLogo from '@/assets/logo/minvoice_horizontal.svg';
 import { LocaleFormatter, useLocale } from '@/locales';
 import { setGlobalState } from '@/stores/systems/global.store';
 import { setUserItem } from '@/stores/users/user.store';
@@ -83,11 +82,7 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
           <span id="sidebar-trigger">{collapsed ? <MenuOutlined /> : <MenuOutlined />}</span>
         </div> */}
         <div className="actions">
-          <Tooltip
-            title={formatMessage({
-              id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip',
-            })}
-          >
+          <Tooltip title={formatMessage({ id: theme === 'dark' ? 'gloabal.tips.theme.lightTooltip' : 'gloabal.tips.theme.darkTooltip', })}>
             <span>
               {createElement(theme === 'dark' ? SunSvg : MoonSvg, {
                 onClick: onChangeTheme,
@@ -144,14 +139,13 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
                 ],
               }}
             >
-              <span className="user-action">
+              <UserOutlined />
+              {/* <span className="user-action">
                 <img src={Avator} className="user-avator" alt="avator" />
-              </span>
+              </span> */}
             </Dropdown>
           ) : (
-            <span style={{ cursor: 'pointer' }} onClick={toLogin}>
-              {formatMessage({ id: 'gloabal.tips.login' })}
-            </span>
+            <span style={{ cursor: 'pointer' }} onClick={toLogin}>{formatMessage({ id: 'gloabal.tips.login' })}</span>
           )}
         </div>
       </div>

@@ -60,7 +60,7 @@ const MenuComponent: FC<MenuProps> = props => {
           </div>
         )}
         <div className='sidebar' onClick={toggle}>
-          <span id="sidebar-trigger" style={{ marginRight: collapsed ? '33px' : '20px' }}>{collapsed ? <MenuOutlined /> : <MenuOutlined />}</span>
+          <a id="sidebar-trigger" style={{ marginRight: collapsed ? '33px' : '20px' }}>{collapsed ? <MenuOutlined /> : <MenuOutlined />}</a>
         </div>
       </div>
       <Menu

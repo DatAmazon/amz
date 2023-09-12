@@ -51,7 +51,7 @@ axiosInstance.interceptors.response.use(
     // if needs to navigate to login page when request exception
     let errorMessage = 'Ngoại lệ hệ thống';
     if (error?.message?.includes('Network Error')) errorMessage = 'Lỗi mạng, vui lòng kiểm tra mạng của bạn';
-    else errorMessage = error?.response?.data.message + "\n" + error?.response?.data.errors[0].messages;
+    else errorMessage = error?.response?.data.message + "\n" + error?.response?.data.errors[0]?.messages;
     error.message && $message.error(errorMessage);
 
     return {

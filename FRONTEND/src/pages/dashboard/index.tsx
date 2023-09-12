@@ -26,7 +26,7 @@ const DashBoardPage: FC = () => {
     <div>
       <Overview loading={loading} />
       <SalePercent loading={loading} />
-      <TimeLine loading={loading} />
+      {/* <TimeLine loading={loading} /> */}
     </div>
   );
 };

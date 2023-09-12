@@ -1,5 +1,5 @@
 import type { LoginParams } from '../../interface/user/login.interface';
-import type { GetDataParram } from '../../interface/user/user.interface';
+import type { ModelGetData } from '../../interface/user/user.interface';
 import type { Dispatch } from '@reduxjs/toolkit';
 
 import { apiLogin } from '../../api/system/auth-api';
@@ -44,7 +44,7 @@ export const logoutAsync = () => {
   };
 };
 
-export const getDataUserAsync = (payload: GetDataParram) => {
+export const getDataUserAsync = (payload: ModelGetData) => {
   return async (dispatch: Dispatch) => {
     const { result, status } = await apiGetUsers(payload);
     console.log(result);
