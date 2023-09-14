@@ -1,4 +1,5 @@
 export const zhCN_avatorDropMenu = {
+  'header.avator.dasboard': '仪表板',
   'header.avator.account': '个人设置',
   'header.avator.logout': '退出登录',
   'global.theme.switchTheme': '切换主题',

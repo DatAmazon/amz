@@ -80,6 +80,7 @@ const UserFormModal: FC<UserProps> = (props: UserProps) => {
     {
         name: "userForm",
         labelAlign: "left",
+        labelCol: { span: 4 }
     }
     const children: React.ReactNode = [
         <>

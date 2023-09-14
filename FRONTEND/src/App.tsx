@@ -55,7 +55,13 @@ const App: React.FC = () => {
     <ConfigProvider
       locale={getAntdLocale()}
       componentSize="middle"
-      theme={{ token: { colorPrimary: '#1677ff' }, algorithm: theme === 'dark' ? a.darkAlgorithm : a.defaultAlgorithm }}
+      theme={{
+        token: { colorPrimary: '#1677ff' },
+        components: {
+          Form: { marginLG: 8 },
+          Modal: { lineHeightHeading5: 2.5 }
+        }, algorithm: theme === 'dark' ? a.darkAlgorithm : [a.defaultAlgorithm]
+      }}
     >
       <IntlProvider locale={locale.split('_')[0]} messages={localeConfig[locale]}>
         <HistoryRouter history={history}>

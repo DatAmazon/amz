@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { LogoutOutlined, MenuOutlined, UserOutlined } from '@ant-design/icons';
+import { LogoutOutlined, MenuOutlined, UserOutlined, DashboardOutlined } from '@ant-design/icons';
 import { Dropdown, Layout, theme as antTheme, Tooltip } from 'antd';
 import { createElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -118,6 +118,15 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
             <Dropdown
               menu={{
                 items: [
+                  {
+                    key: '0',
+                    icon: <DashboardOutlined />,
+                    label: (
+                      <span onClick={() => navigate('/dashboard')}>
+                        <LocaleFormatter id="header.avator.dasboard" />
+                      </span>
+                    ),
+                  },
                   {
                     key: '1',
                     icon: <UserOutlined />,

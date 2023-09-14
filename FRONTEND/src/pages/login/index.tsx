@@ -6,6 +6,7 @@ import MinvoiceLogo from '@/assets/logo/minvoice_vertical.svg';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import { LocaleFormatter, useLocale } from '@/locales';
 import { formatSearch } from '@/utils/format-search';
@@ -34,14 +35,13 @@ const LoginForm: FC = () => {
 
   return (
     <div className="login-page">
-      <Form<LoginParams> onFinish={onFinished} className="login-page-form" initialValues={initialValues}>
+      <Form<LoginParams> layout="vertical" onFinish={onFinished} className="login-page-form" initialValues={initialValues}>
         <img src={MinvoiceLogo} width={220} height={160} alt="" />
-        <Form.Item name="username" rules={[{ required: true, message: formatMessage({ id: 'gloabal.tips.enterUsernameMessage', }), },]}>
-          <Input placeholder={formatMessage({ id: 'gloabal.tips.username', })} />
+        <Form.Item hasFeedback label="Tài khoản" name="username" rules={[{ required: true, message: formatMessage({ id: 'gloabal.tips.enterUsernameMessage', }), },]}>
+          <Input prefix={<UserOutlined />} placeholder={formatMessage({ id: 'gloabal.tips.username', })} />
         </Form.Item>
-        <Form.Item name="password" rules={[{ required: true, message: formatMessage({ id: 'gloabal.tips.enterPasswordMessage', }), },]}>
-          <Input type="password" placeholder={formatMessage({ id: 'gloabal.tips.password', })}
-          />
+        <Form.Item hasFeedback label="Mật khẩu" name="password" rules={[{ required: true, message: formatMessage({ id: 'gloabal.tips.enterPasswordMessage', }), },]}>
+          <Input.Password prefix={<LockOutlined />} type="password" placeholder={formatMessage({ id: 'gloabal.tips.password', })}/>
         </Form.Item>
         <Form.Item name="remember" valuePropName="checked">
           <Checkbox>

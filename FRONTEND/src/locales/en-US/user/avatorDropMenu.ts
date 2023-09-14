@@ -1,4 +1,5 @@
 export const enUS_avatorDropMenu = {
+  'header.avator.dasboard': 'Dashboard',
   'header.avator.account': 'Account',
   'header.avator.logout': 'Logout',
   'global.theme.switchTheme': 'Switch Theme',
