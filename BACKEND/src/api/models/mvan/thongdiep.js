@@ -1,50 +1,39 @@
-const { Schema, model, Types } = require('mongoose');
+const { Schema, model, Types, Number } = require('mongoose');
 const { APIError } = require('../../../extensions/response-pattern');
 const { STATUS, VALIDATION_ERROR, NO_RECORD_FOUND } = require('../../../extensions/constants-manager');
-const { listToTree } = require('../../../extensions/function-extension');
-const { uuid } = require('uuidv4');
 
-const menus = new Schema({
-    menuId: {
-        type: String,
-        require: true,
-        unique: true,
-        lowercase: true,
-        trim: true,
-        default: uuid
-    },
-    menuOrder: {
-        type: Number,
-        required: true
-    },
-    menuName: {
-        type: Object,
-        required: true,
-        trim: true,
-    },
-    menuIcon: {
-        type: String,
-        required: false
-    },
-    menuPath: {
-        type: String,
-        require: true,
-        unique: true,
-        lowercase: true,
-        trim: true
-    },
-    children: {
-        type: String
-    },
-    parentId: {
-        type: String
-    }
+const ThongDiep = new Schema({
+    PBan: { type: String, trim: true },
+    MNGui: { type: String },
+    MNNhan: { type: String },
+    MLTDiep: { type: String },
+    MTDiep: { type: String },
+    MTDTChieu: { type: String, trim: true },
+    Mst: { type: String, trim: true },
+    MGDDTu: { type: String, trim: true },
+    DateNew: { type: Date, default: Date.now },
+    Xml: { type: String, trim: true },
+    FileId: { type: String, trim: true },
+    Type: { type: String, trim: true },
+    TTTNhan: { type: String, trim: true },
+    MsgTimeStamp: { type: Date },
+    Offset: { type: Number },
+    LTBao: { type: String, trim: true },
+    THop: { type: String, trim: true },
+    TTXNCQT: { type: String, trim: true },
+    MTDiep999: { type: String, trim: true },
+    MstTcgp: { type: String, trim: true },
+    TransId: { type: String, trim: true },
+    MLTDiepTChieu: { type: String, trim: true },
+    BucketName: { type: String, trim: true },
+    FileName: { type: String, trim: true },
+    UrlShare: { type: String, trim: true }
 }, { timestamps: true });
 
 /**
  * Statics
  */
-menus.statics = {
+ThongDiep.statics = {
     /**
      * Get menu
      *
@@ -55,18 +44,13 @@ menus.statics = {
         if (!Types.ObjectId.isValid(id)) {
             throw new APIError({
                 message: VALIDATION_ERROR,
-                errors: [{ field: 'id', location: 'params', messages: 'Please enter valid Menu ID' }],
+                errors: [{ field: 'id', location: 'params', messages: 'Please enter valid ID' }],
                 status: STATUS.NOT_FOUND,
             });
         }
         const data = await this.findById(id).exec();
         if (!data) throw new APIError({ message: NO_RECORD_FOUND, status: STATUS.NOT_FOUND });
         return data;
-    },
-    async getMenuByUser() {
-        const data = await this.find().lean().exec();
-        if (!data) throw new APIError({ message: NO_RECORD_FOUND, status: STATUS.NOT_FOUND });
-        return  listToTree(data, { idKey: "menuId", parentId: "parentId" });
     },
     /**
    * Return Validation Error
@@ -90,4 +74,4 @@ menus.statics = {
 /**
  * @typedef Menu
  */
-module.exports = model('menus', menus);
+module.exports = model('ThongDiep', ThongDiep);

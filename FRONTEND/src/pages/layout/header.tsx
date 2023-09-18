@@ -18,6 +18,7 @@ import { setUserItem } from '@/stores/users/user.store';
 
 import { logoutAsync } from '../../stores/users/user.action';
 import HeaderNoticeComponent from './notice';
+import { addTag, removeTag, setActiveTag } from '@/stores/systems/tagsView.store';
 
 const { Header } = Layout;
 
@@ -131,7 +132,23 @@ const HeaderComponent: FC<HeaderProps> = ({ collapsed, toggle }) => {
                     key: '1',
                     icon: <UserOutlined />,
                     label: (
-                      <span onClick={() => navigate('/dashboard')}>
+                      <span onClick={() => {
+                        var menu = {
+                          menuId: '9b180aab-fbb4-4329-b556-28ca316f9360',
+                          menuName: {
+                            zh_CN: 'string',
+                            en_US: 'user-info'
+                          },
+                          menuPath: '/user-info'
+                        };
+                        dispatch(
+                          addTag({
+                            ...menu,
+                            closable: menu.menuPath !== 'dashboard',
+                          }),
+                        );
+                       return navigate('/user-info');
+                      }}>
                         <LocaleFormatter id="header.avator.account" />
                       </span>
                     ),

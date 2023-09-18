@@ -1,6 +1,7 @@
 import 'dayjs/locale/zh-cn';
 
-import { ConfigProvider, Spin, theme as a } from 'antd';
+import { ConfigProvider, Spin, theme as a, FloatButton } from 'antd';
+import { CommentOutlined, CustomerServiceOutlined } from '@ant-design/icons';
 import enUS from 'antd/es/locale/en_US';
 import zhCN from 'antd/es/locale/zh_CN';
 import dayjs from 'dayjs';
@@ -71,6 +72,16 @@ const App: React.FC = () => {
               className="app-loading-wrapper"
               tip={<LocaleFormatter id="gloabal.tips.loading" />}
             ></Spin>
+            {/* <FloatButton.Group
+              // open={open}
+              trigger="click"
+              style={{ right: 24 }}
+              icon={<CustomerServiceOutlined />}
+            >
+              <FloatButton />
+              <FloatButton icon={<CommentOutlined />} />
+              <FloatButton.BackTop visibilityHeight={0} />
+            </FloatButton.Group> */}
             <RenderRouter />
           </Suspense>
         </HistoryRouter>

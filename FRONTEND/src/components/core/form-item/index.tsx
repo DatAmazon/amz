@@ -4,7 +4,7 @@ import type { FC } from 'react';
 import { Checkbox, DatePicker, Form, Input, InputNumber, Radio, Select, Switch } from 'antd';
 import React, { useMemo } from 'react';
 
-export type ControlTypes = 'input' | 'input-number' | 'switch' | 'date-picker' | 'checkbox' | 'checkbox-group' | 'radio' | 'select' ;
+export type ControlTypes = 'input' | 'input-number' | 'switch' | 'date-picker' | 'checkbox' | 'checkbox-group' | 'radio' | 'select' | 'password';
 
 type GetRCPropsType<T> = T extends (props: infer R) => any ? R : T extends React.ComponentClass<infer R> ? R : any;
 
@@ -17,6 +17,7 @@ type InnerProps = {
   'checkbox-group': GetRCPropsType<typeof Checkbox>;
   radio: GetRCPropsType<typeof Radio>;
   select: GetRCPropsType<typeof Select>;
+  'password': GetRCPropsType<typeof Input>;
 };
 
 export interface MinvoiceFormItemProps<T extends ControlTypes = ControlTypes> extends Omit<FormItemProps, 'required'> {
@@ -28,7 +29,7 @@ export interface MinvoiceFormItemProps<T extends ControlTypes = ControlTypes> ex
     disabled?: boolean;
   }[];
   /** Thuộc tính bên trong của items(<Input innerProps>, <Checkbox innerProps> .....), tùy chọn **/
-  innerProps?: InnerProps[T];
+  innerprops?: InnerProps[T];
   required?: string | boolean;
 }
 
@@ -39,44 +40,48 @@ export class ControlMap {
     this.props = props;
   }
 
-  get innerProps() {
-    return this.props.innerProps as object;
+  get innerprops() {
+    return this.props.innerprops as object;
   }
 
   input() {
-    return <Input {...this.innerProps} />;
+    return <Input {...this.innerprops} />;
+  }
+
+  'password'() {
+    return <Input.Password {...this.innerprops} />;
   }
 
   'input-number'() {
-    return <InputNumber {...this.innerProps} />;
+    return <InputNumber {...this.innerprops} />;
   }
 
   switch() {
-    return <Switch {...this.innerProps} />;
+    return <Switch {...this.innerprops} />;
   }
 
   'date-picker'() {
-    return <DatePicker {...this.innerProps} />;
+    return <DatePicker {...this.innerprops} />;
   }
 
   checkbox() {
     // highlight-next-line
-    return <Checkbox children={this.props.children} {...this.innerProps} />;
+    return <Checkbox children={this.props.children} {...this.innerprops} />;
   }
 
   'checkbox-group'() {
     // highlight-next-line
-    return <Checkbox.Group children={this.props.children} options={this.props.options} {...this.innerProps} />;
+    return <Checkbox.Group children={this.props.children} options={this.props.options} {...this.innerprops} />;
   }
 
   radio() {
     // highlight-next-line
-    return <Radio.Group children={this.props.children} options={this.props.options} {...this.innerProps} />;
+    return <Radio.Group children={this.props.children} options={this.props.options} {...this.innerprops} />;
   }
 
   select() {
     // highlight-next-line
-    return <Select children={this.props.children} options={this.props.options} {...this.innerProps} />;
+    return <Select children={this.props.children} options={this.props.options} {...this.innerprops} />;
   }
 }
 

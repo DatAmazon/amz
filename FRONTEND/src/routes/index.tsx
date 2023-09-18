@@ -13,6 +13,7 @@ import WrapperRouteComponent from './config';
 
 const NotFound = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/404'));
 const Users = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/users'));
+const UserInfo = lazy(() => import(/* webpackChunkName: "404'"*/ '@/pages/users/user-info'));
 const Guide = lazy(() => import(/* webpackChunkName: "guide'"*/ '@/pages/guide'));
 const RoutePermission = lazy(() => import(/* webpackChunkName: "route-permission"*/ '@/pages/permission/route'));
 const FormPage = lazy(() => import(/* webpackChunkName: "form'"*/ '@/pages/components/form'));
@@ -45,6 +46,10 @@ const routeList: RouteObject[] = [
       {
         path: 'dashboard',
         element: <WrapperRouteComponent element={<Dashboard />} titleId="title.dashboard" />,
+      },
+      {
+        path: 'user-info',
+        element: <WrapperRouteComponent element={<UserInfo />} titleId="title.user.info" />,
       },
       {
         path: 'users',

@@ -23,9 +23,8 @@ const UserFormModal: FC<UserProps> = (props: UserProps) => {
 
     const [formInstance] = useForm<ModelUser>();
     useEffect(() => {
-        // formInstance.setFieldsValue(userRecord?? {});
         if (editMode == 1) {
-            formInstance.setFieldsValue({});
+            formInstance.setFieldsValue(userRecord ?? {});
         }
         if (editMode == 2) {
             const fetchData = async () => {
@@ -59,8 +58,11 @@ const UserFormModal: FC<UserProps> = (props: UserProps) => {
     };
 
     const fileldOptions: Array<MinvoiceFormItemProps<ControlTypes>> = [
-        { type: 'input', label: 'Tài khoản', name: 'username', required: true, innerProps: { disabled: editMode == 1 ? false : true } },
-        { type: 'input', label: 'Mật khẩu', name: 'password', required: true, },
+        {
+            type: 'input', label: 'Tài khoản', name: 'username', required: true,
+            innerprops: { disabled: editMode == 1 ? false : true } 
+        },
+        { type: 'password', label: 'Mật khẩu', name: 'password', required: true, },
         { type: 'input', label: 'Email', name: 'email', required: true },
         {
             type: 'input', label: 'Tên tài khoản', name: 'name', required: true

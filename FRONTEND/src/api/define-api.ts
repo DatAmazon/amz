@@ -16,12 +16,13 @@ export const ApiList = (key: string) => {
 export const ApiDefine = {
   LOG_IN: "auth/login",
   LOG_OUT: "auth/logout",
-  MENU : "menus",
-  USER : {
-    CREATE:"users",
-    UPDATE:"users",
-    DELETE:"users",
-    GET_DATA:"users"
+  MENU: "menus",
+  USER: {
+    CREATE: "users",
+    UPDATE: "users",
+    DELETE: "users",
+    GET_DATA: "users",
+    INFO: "users/profile",
   },
-  NOTICE : "users/notice",
+  NOTICE: "users/notice",
 }
