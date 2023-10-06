@@ -26,9 +26,9 @@ exports.ErrorHandler = Handler;
 exports.Handler = Handler;
 
 exports.ResponseApi = (code, message, data) => {
-  const response = new ResposeApiModel(code, message, data,);
+  const response = new ResposeApiModel(code, message, data);
   return response;
-}
+};
 /**
  * Convert Error Thrown By Express Validator OR Not an Instance of API Error
  * @public

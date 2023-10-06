@@ -1,5 +1,5 @@
 const { Get, CreateMenu, UpdateMenu, RemoveMenu, GetMenuByUser } = require('../service/systems/menu');
-const { ErrorHandler, ResponseApi } = require('../../middleware/error-handled');
+const { ResponseApi } = require('../../middleware/error-handled');
 const { STATUS } = require('../../extensions/constants-manager');
 const { CreateCache, GetCache } = require('../../extensions/redis-cache');
 const Menu = require('../models/systems/menu');

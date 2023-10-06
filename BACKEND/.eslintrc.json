@@ -5,6 +5,8 @@
     "mocha": true
   },
   "rules": {
+    "indent": "off",
+    "linebreak-style": ["error", "windows"],
     "no-console": 2,
     "no-underscore-dangle": 0,
     "no-unused-vars": [

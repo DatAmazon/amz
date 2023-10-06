@@ -1,6 +1,6 @@
 const { omit } = require('lodash');
-const User = require('../../models/systems/user');
 const ObjectId = require('mongoose').Types.ObjectId;
+const User = require('../../models/systems/user');
 /**
  * Get logged in user info
  * @public

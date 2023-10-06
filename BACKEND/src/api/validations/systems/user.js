@@ -7,7 +7,7 @@ module.exports = {
   listUsers: {
     query: {
       page: Joi.number().min(0),
-      size: Joi.number().min(1).max(100)
+      size: Joi.number().min(1).max(100),
     },
   },
 

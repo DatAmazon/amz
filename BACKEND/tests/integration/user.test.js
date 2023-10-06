@@ -2,7 +2,7 @@ const request = require('supertest');
 const { expect } = require('chai');
 const bcrypt = require('bcryptjs');
 const app = require('../../src/server');
-const User = require('../../src/api/models/user');
+const User = require('../../src/api/models/systems/user');
 
 describe('USERS APIS', async () => {
   const password = '123456';

@@ -6,7 +6,7 @@ module.exports = {
         body: {
             menuOrder: Joi.number().required(),
             menuName: Joi.object().required(),
-            menuPath: Joi.string().required()
+            menuPath: Joi.string().required(),
         },
-    }
+    },
 };

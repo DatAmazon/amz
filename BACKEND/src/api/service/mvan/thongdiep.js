@@ -1,5 +1,5 @@
-const ThongDieps = require('../../models/mvan/thongdiep');
 const ObjectId = require('mongoose').Types.ObjectId;
+const ThongDieps = require('../../models/mvan/thongdiep');
 
 /**
  * Get ThongDiep By ID

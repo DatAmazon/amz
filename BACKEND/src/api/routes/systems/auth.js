@@ -11,7 +11,7 @@ const { Login, Register } = require('../../validations/systems/auth');
  * @apiGroup Auth
  * @apiPermission public
  *
- * @apiParam {String{3...128}}  username      User's 
+ * @apiParam {String{3...128}}  username      User's
  * @apiParam {String{3...128}}  name      User's name
  * @apiParam  {String}          email     User's email
  * @apiParam  {String{6..128}}  password  User's password
@@ -42,7 +42,7 @@ app.route('/register').post(Validate(Register), controller.register);
  * @apiGroup Auth
  * @apiPermission public
  *
- * @apiParam  {String}         username     User's 
+ * @apiParam  {String}         username     User's
  * @apiParam  {String{..128}}  password  User's password
  *
  * @apiSuccess  {String}  token.tokenType     Access Token's type

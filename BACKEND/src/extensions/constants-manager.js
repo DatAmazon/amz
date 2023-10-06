@@ -26,8 +26,8 @@ module.exports = {
     INVALID_CREDENTIALS: 'Tài khoản hoặc mật khẩu không đúng.',
   },
   USER: {
-    EXIST_USER: "Username is already in use",
-    EXIST_EMAIL: "Email is already in use"
+    EXIST_USER: 'Username is already in use',
+    EXIST_EMAIL: 'Email is already in use',
   },
   // API Defaults
   ROLES: ['user', 'admin'],

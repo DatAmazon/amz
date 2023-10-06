@@ -11,7 +11,7 @@ const filterGrid = (searchParams) => {
         if (value) response[key] = value;
     });
     return response;
-}
+};
 
 const listToTree = (data, options) => {
     options = options || {};
@@ -30,7 +30,7 @@ const listToTree = (data, options) => {
         childrenOf[id] = childrenOf[id] || [];
         // init its children
         item[CHILDREN_KEY] = childrenOf[id];
-        if (parentId != 0) {
+        if (parentId !== 0) {
             // init its parent's children object
             childrenOf[parentId] = childrenOf[parentId] || [];
             // push it into its parent's children object

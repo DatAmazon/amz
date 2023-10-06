@@ -11,11 +11,11 @@ const menus = new Schema({
         unique: true,
         lowercase: true,
         trim: true,
-        default: uuid
+        default: uuid,
     },
     menuOrder: {
         type: Number,
-        required: true
+        required: true,
     },
     menuName: {
         type: Object,
@@ -24,20 +24,20 @@ const menus = new Schema({
     },
     menuIcon: {
         type: String,
-        required: false
+        required: false,
     },
     menuPath: {
         type: String,
         require: true,
         unique: true,
         lowercase: true,
-        trim: true
+        trim: true,
     },
     children: {
-        type: String
+        type: String,
     },
     parentId: {
-        type: String
+        type: String,
     }
 }, { timestamps: true });
 
@@ -80,7 +80,7 @@ menus.statics = {
             return new APIError({
                 message: "Có lỗi xảy ra",
                 status: STATUS.BAD_REQUEST,
-                errors: [{ field: keys[0], location: 'body', messages: error.errmsg, }],
+                errors: [{ field: keys[0], location: 'body', messages: error.errmsg, }]
             });
         }
         return error;

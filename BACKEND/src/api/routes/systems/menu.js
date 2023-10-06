@@ -14,7 +14,6 @@ app.route('/')
    * @apiPermission ADMIN
    *
    * @apiHeader {String} Authorization  Menu's access token
-   
    * @apiParam (Query Params) {String}            [email]             User Email
    * @apiParam (Query Params) {String}            [name]              User name
    * @apiParam (Query Params) {Number {1-100}}    [perPage=1]         User List limit per page

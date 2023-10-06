@@ -1,7 +1,7 @@
 const request = require('supertest');
 const { expect } = require('chai');
 const app = require('../../src/server');
-const User = require('../../src/api/models/user');
+const User = require('../../src/api/models/systems/user');
 
 describe('AUTHENTICATION APIS', async () => {
   let dbUser;
