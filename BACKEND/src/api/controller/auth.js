@@ -1,6 +1,6 @@
 const { Login, Register } = require('../service/systems/auth');
 const { STATUS } = require('../../extensions/constants-manager');
-
+const { ErrorHandler, ResponseApi } = require('../../middleware/error-handled');
 /**
  * Authenticate User
  *

@@ -46,7 +46,7 @@ const UserTalbePage: FC = () => {
   };
 
   const changePage = (varPage: number, varPageSize: number) => {
-    getData(varPage, varPageSize);
+    getData(varPage - 1, varPageSize);
   };
 
   const toggleModal = () => {
@@ -122,7 +122,7 @@ const UserTalbePage: FC = () => {
           showSizeChanger: true
         }}>
       </MinvoiceTable>
-      <UserFormModal isShowModal={isShowModal} onClose={toggleModal} editMode={editMode} userRecord={userRecord} ></UserFormModal>
+      <UserFormModal isShowModal={isShowModal} onClose={toggleModal} editMode={editMode} userRecord={userRecord} getData={getData} ></UserFormModal>
     </div>
   );
 };

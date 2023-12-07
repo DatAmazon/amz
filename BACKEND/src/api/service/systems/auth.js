@@ -2,6 +2,7 @@ const moment = require('moment');
 const User = require('../../models/systems/user');
 const RefreshToken = require('../../models/systems/refresh-token');
 const { jwtExpirationInterval } = require('../../../config/configuration-env');
+const constantsManager = require('../../../extensions/constants-manager');
 
 /**
  * Return Formated Object With Tokens
@@ -12,7 +13,7 @@ const { jwtExpirationInterval } = require('../../../config/configuration-env');
  * @returns {Object} {tokenType, accessToken, refreshToken, expiresIn}
  */
 const generateTokenResponse = (user, accessToken) => {
-  const tokenType = 'Bearer';
+  const tokenType = constantsManager.TOKEN_TYPE;
   const refreshToken = RefreshToken.generate(user);
   const expiresIn = moment().add(jwtExpirationInterval, 'minutes');
   return {

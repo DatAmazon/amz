@@ -9,23 +9,30 @@ describe('AUTHENTICATION APIS', async () => {
 
   beforeEach(async () => {
     dbUser = {
-      email: 'branstark@gmail.com',
-      password: 'mypassword',
-      name: 'Bran Stark',
+      username: "nam1812hy",
+      name: 'Nam Phạm',
+      email: 'nam1812hy@gmail.com',
+      password: 'passwordHashed',
       role: 'admin',
+      active: true,
+      group: { code: '1', name: 'admin' },
     };
     user = {
-      email: 'sousa.dfs@gmail.com',
-      password: '12345678',
-      name: 'Daniel Sousa',
+      username: "nam1812hy2",
+      name: 'Nam Phạm 2',
+      email: 'nam1812hy2@gmail.com',
+      password: 'passwordHashed',
+      role: 'admin',
+      active: true,
+      group: { code: '1', name: 'admin' },
     };
     await User.deleteMany({});
     await User.create(dbUser);
   });
 
-  describe('POST /v1/auth/register', () => {
+  describe('POST /auth/register', () => {
     it('Should register user', async () => {
-      const res = await request(app).post('/api/v1/auth/register').send(user).expect(201);
+      const res = await request(app).post('/api/auth/register').send(user).expect(201);
       delete user.password;
       user.role = 'user';
       expect(res.body.data).to.haveOwnProperty('token');
@@ -34,7 +41,7 @@ describe('AUTHENTICATION APIS', async () => {
     });
 
     it('Should report error when email already exists', async () => {
-      const res = await request(app).post('/api/v1/auth/register').send(dbUser).expect(400);
+      const res = await request(app).post('/api/auth/register').send(dbUser).expect(400);
       const { field, location, messages } = res.body.errors[0];
       expect(res.body.code).to.equal(400);
       expect(res.body.message).to.equal('Email is already in use by another account');
@@ -49,7 +56,7 @@ describe('AUTHENTICATION APIS', async () => {
         password: '124',
         name: 's',
       };
-      const res = await request(app).post('/api/v1/auth/register').send(invalidData).expect(400);
+      const res = await request(app).post('/api/auth/register').send(invalidData).expect(400);
       const data1 = res.body.errors[0];
       const data2 = res.body.errors[1];
       const data3 = res.body.errors[2];
@@ -71,7 +78,7 @@ describe('AUTHENTICATION APIS', async () => {
     });
 
     it('Should report validation error when fields are not passed', async () => {
-      const res = await request(app).post('/api/v1/auth/register').send({}).expect(400);
+      const res = await request(app).post('/api/auth/register').send({}).expect(400);
       const data1 = res.body.errors[0];
       const data2 = res.body.errors[1];
       const data3 = res.body.errors[2];
@@ -93,9 +100,9 @@ describe('AUTHENTICATION APIS', async () => {
     });
   });
 
-  describe('POST /v1/auth/login', () => {
+  describe('POST /auth/login', () => {
     it('Should return access and refresh token if valid credentials provided', async () => {
-      const res = await request(app).post('/api/v1/auth/login').send(dbUser).expect(200);
+      const res = await request(app).post('/api/auth/login').send(dbUser).expect(200);
 
       expect(res.body.data.user).to.haveOwnProperty('id');
 
@@ -109,7 +116,7 @@ describe('AUTHENTICATION APIS', async () => {
     });
 
     it('Should report required parameter error when data not provided', async () => {
-      const res = await request(app).post('/api/v1/auth/login').send({}).expect(400);
+      const res = await request(app).post('/api/auth/login').send({}).expect(400);
       const data2 = res.body.errors[0];
       const data3 = res.body.errors[1];
 
@@ -131,7 +138,7 @@ describe('AUTHENTICATION APIS', async () => {
         password: 'ad',
       };
 
-      const res = await request(app).post('/api/v1/auth/login').send(invalidData).expect(400);
+      const res = await request(app).post('/api/auth/login').send(invalidData).expect(400);
       const data2 = res.body.errors[0];
       const data3 = res.body.errors[1];
 
@@ -152,7 +159,7 @@ describe('AUTHENTICATION APIS', async () => {
         email: 'branstark12@gmail.com',
         password: 'invalidPassword',
       };
-      const res = await request(app).post('/api/v1/auth/login').send(invalidData).expect(401);
+      const res = await request(app).post('/api/auth/login').send(invalidData).expect(401);
       expect(res.body.message).to.equal('Invalid Credentials, Please check and try again');
       expect(res.body.code).to.equal(401);
       expect(res.body.errors).to.be.lengthOf(0);

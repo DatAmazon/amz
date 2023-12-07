@@ -46,11 +46,13 @@ const styles = css`
   .ant-table-container {
     height: 100%;
   }
+  .ant-table-body {
+    overflow: hidden !important;
+  }
   .ant-spin-container {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-
     .ant-table {
       flex: 1;
       overflow: hidden;

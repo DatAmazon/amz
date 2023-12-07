@@ -1,4 +1,6 @@
-interface MenuItem {
+import { MongoModel } from "../base/mongo-model.interface";
+
+export interface MenuItem extends MongoModel {
   /** menu item code */
   menuId: string;
   menuName: {

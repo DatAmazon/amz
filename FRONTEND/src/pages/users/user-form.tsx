@@ -13,11 +13,12 @@ interface UserProps {
     isShowModal: boolean,
     onClose?: (record?: any) => any;
     editMode?: number,
+    getData: (varPage: number, varPageSize: number) => any,
     userRecord?: ModelUser
 }
 
 const UserFormModal: FC<UserProps> = (props: UserProps) => {
-    const { isShowModal, onClose, editMode, userRecord, ...rest } = props;
+    const { isShowModal, onClose, editMode, userRecord, getData, ...rest } = props;
     const [loading, setLoading] = useState(false);
     const { formatMessage } = useLocale();
 
@@ -43,11 +44,13 @@ const UserFormModal: FC<UserProps> = (props: UserProps) => {
                         var { status, result } = await apiCreateUsers(values);
                         status && $message.success("Thêm mới tài khoản thành công");
                         status && onClose?.();
+                        status && getData(0, 10);
                         break;
                     case 2:
                         var { status, result } = await apiUpdateUsers(userRecord?._id, values!);
                         status && $message.success("Sửa khoản thành công");
                         status && onClose?.();
+                        status && getData(0, 10);
                         break;
                 };
             }).catch((errors) => {
@@ -60,7 +63,7 @@ const UserFormModal: FC<UserProps> = (props: UserProps) => {
     const fileldOptions: Array<MinvoiceFormItemProps<ControlTypes>> = [
         {
             type: 'input', label: 'Tài khoản', name: 'username', required: true,
-            innerprops: { disabled: editMode == 1 ? false : true } 
+            innerprops: { disabled: editMode == 1 ? false : true }
         },
         { type: 'password', label: 'Mật khẩu', name: 'password', required: true, },
         { type: 'input', label: 'Email', name: 'email', required: true },

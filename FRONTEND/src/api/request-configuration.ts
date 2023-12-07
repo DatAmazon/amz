@@ -23,7 +23,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   config => {
-    console.log(store.getState());
+    // console.log(store.getState());
     store.dispatch(setGlobalState({ loading: true, }),);
     const authToken = localStorage.getItem('jwt');
     if (authToken && config) config.headers!.Authorization = `Bearer ${authToken}`;

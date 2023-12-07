@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shekhar-raval/node-express-es8.git"
+    "url": "https://github.com/"
   },
   "scripts": {
     "precommit": "npm run lint && npm run test",
@@ -75,7 +75,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "method-override": "^3.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.7.7",
     "mongoose-paginate-v2": "^1.7.31",
     "morgan": "^1.9.1",
@@ -84,7 +84,8 @@
     "passport-jwt": "^4.0.0",
     "redis": "^2.8.0",
     "uuidv4": "^6.2.13",
-    "winston": "^3.2.1"
+    "winston": "^3.2.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "apidoc": "^0.17.7",
@@ -95,6 +96,7 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "husky": "^3.0.9",
+    "kill-port": "^2.0.1",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.4",
     "nyc": "^14.1.1",

@@ -53,7 +53,28 @@ app.route('/')
    * @apiError (Bad Request 400)   ValidationError  Some parameters may contain invalid values
    */
   .post(Authorize(), Validate(createMenu), controller.create);
-
+app.route('/get-all')
+  /**
+     * @api {get} /menus/get-all List Menus
+     * @apiDescription Get List of Menus
+     * @apiVersion 1.0.0
+     * @apiName ListMenus
+     * @apiGroup Menus
+     * @apiPermission ADMIN
+     *
+     * @apiHeader {String} Authorization  Menu's access token
+     * @apiParam (Query Params) {String}            [email]             User Email
+     * @apiParam (Query Params) {String}            [name]              User name
+     * @apiParam (Query Params) {Number {1-100}}    [perPage=1]         User List limit per page
+     * @apiParam (Query Params) {Number {1-}}       [page=1]            List Page
+     * @apiParam (Query Params) {String=user,admin} [role]              User Role
+     *
+     * @apiSuccess {Object[]} list of users
+     *
+     * @apiError (Unauthorized 401) Unauthorized Only authenticated users can access the data
+     * @apiError (Forbidden 401) Forbidden Only ADMINS can access the data
+     */
+  .get(Authorize(), controller.getAllMenu)
 app.route('/:menuId')
   /**
    * @api {get} /:menuId Get Menus Information

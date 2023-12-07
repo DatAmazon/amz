@@ -25,10 +25,12 @@ const RadioCardsPage = lazy(() => import(/* webpackChunkName: "radio-cards'"*/ '
 const BusinessBasicPage = lazy(() => import(/* webpackChunkName: "basic-page" */ '@/pages/business/basic'));
 const BusinessWithSearchPage = lazy(() => import(/* webpackChunkName: "with-search" */ '@/pages/business/with-search'));
 const BusinessWithAsidePage = lazy(() => import(/* webpackChunkName: "with-aside" */ '@/pages/business/with-aside'));
-const BusinessWithRadioCardsPage = lazy(
-  () => import(/* webpackChunkName: "with-aside" */ '@/pages/business/with-radio-cards'),
-);
+const GroupPermissionPage = lazy(() => import(/* webpackChunkName: "with-aside" */ '@/pages/group-permission'));
+const BusinessWithRadioCardsPage = lazy(() => import(/* webpackChunkName: "with-aside" */ '@/pages/business/with-radio-cards'),);
 const BusinessWithTabsPage = lazy(() => import(/* webpackChunkName: "with-tabs" */ '@/pages/business/with-tabs'));
+const ListTaxCodeOfSolutionOrganization = lazy(() => import(/* webpackChunkName: "guide'"*/ '@/pages/tax-report-by-month'));
+import DetailReceived from '@/pages/tax-report-by-month';
+import DetailSent from '@/pages/tax-report-by-month';
 
 const routeList: RouteObject[] = [
   {
@@ -54,6 +56,10 @@ const routeList: RouteObject[] = [
       {
         path: 'users',
         element: <WrapperRouteComponent element={<Users />} titleId="title.user" />,
+      },
+      {
+        path: "group-permission",
+        element: <WrapperRouteComponent element={<GroupPermissionPage />} titleId='title.group.permisson' />
       },
       {
         path: 'guide',
@@ -106,6 +112,18 @@ const routeList: RouteObject[] = [
       {
         path: 'business/with-tabs',
         element: <WrapperRouteComponent element={<BusinessWithTabsPage />} titleId="title.account" />,
+      },
+      {
+        path: 'thongDiep/message-by-date',
+        element: <WrapperRouteComponent element={<ListTaxCodeOfSolutionOrganization indexs={0} mstTcgp={''} totalSentUp={null} totalReturn={null} total={0}  />} titleId="title.list-tax-code" />,
+      },
+      {
+        path: 'thongDiep/detail-message-sent',
+        element: <WrapperRouteComponent element={<DetailSent indexs={0} mstTcgp={''} MLTDiep={0} total={0}   />} titleId="title.list-tax-code" />,
+      },
+      {
+        path: 'thongDiep/detail-message-received',
+        element: <WrapperRouteComponent element={<DetailReceived indexs={0} mstTcgp={''} MLTDiep={0} total={0} />} titleId="title.list-tax-code" />,
       },
       {
         path: '*',

@@ -3,6 +3,21 @@ const Validate = require('express-validation');
 const { Authorize } = require('../../../middleware/authorzie-attribute');
 const controller = require('../../controller/thongdiep');
 
+  app.route('/message-by-date')
+  .post(Authorize(), controller.searchThongDiepByDate)
+app.route('/message-by-date/export-excel')
+  .post(Authorize(), controller.exportExcelThongDiepByDate)  
+
+app.route('/detail-message-sent')
+  .post(Authorize(), controller.searchDetailSent)
+app.route('/detail-message-sent/export-excel')
+  .post(Authorize(), controller.exportExcelDetailSent)
+
+app.route('/detail-message-received')
+  .post(Authorize(), controller.searchDetailReceived)
+app.route('/detail-message-received/export-excel')
+  .post(Authorize(), controller.exportExcelDetailReceived)
+
 app.route('/:thongdiepId')
   /**
    * @api {get} /:thongdiepId Get ThongDiep Information
@@ -25,5 +40,7 @@ app.route('/:thongdiepId')
    * @apiError (Not Found 403)    Forbidden    Only admins or user with same id can access data
    */
   .get(Authorize(), controller.getThongDiepById);
+
+
 
 module.exports = app;

@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import Overview from './overview';
 import SalePercent from './salePercent';
 import TimeLine from './timeLine';
-
 const DashBoardPage: FC = () => {
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +25,7 @@ const DashBoardPage: FC = () => {
     <div>
       <Overview loading={loading} />
       <SalePercent loading={loading} />
-      {/* <TimeLine loading={loading} /> */}
+      <TimeLine loading={loading} />
     </div>
   );
 };

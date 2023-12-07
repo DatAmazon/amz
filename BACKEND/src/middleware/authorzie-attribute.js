@@ -1,5 +1,5 @@
 const passport = require('passport');
-const { ROLES, UNAUTHORIZED, LOGGED_IN, FORBIDDEN, } = require('../extensions/constants-manager');
+const { ROLES, UNAUTHORIZED, LOGGED_IN, FORBIDDEN } = require('../extensions/constants-manager');
 const APIError = require('../extensions/response-pattern');
 
 const handleJWT = (req, res, next, roles) => async (err, user, info) => {

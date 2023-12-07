@@ -1,8 +1,23 @@
-const { Get, CreateMenu, UpdateMenu, RemoveMenu, GetMenuByUser } = require('../service/systems/menu');
-const { ResponseApi } = require('../../middleware/error-handled');
+const { Get, CreateMenu, UpdateMenu, RemoveMenu, GetMenuByUser, GetMenuByUserGroup, GetAllMenu } = require('../service/systems/menu');
+const { ErrorHandler, ResponseApi } = require('../../middleware/error-handled');
 const { STATUS } = require('../../extensions/constants-manager');
 const { CreateCache, GetCache } = require('../../extensions/redis-cache');
 const Menu = require('../models/systems/menu');
+const jwt = require('jsonwebtoken');
+
+/**
+ * Get all menu.
+ * @public
+ */
+exports.getAllMenu = async (req, res, next) => {
+  try {
+    const data = await GetAllMenu();
+    return res.json(ResponseApi(0, null, data));
+  }
+  catch (error) {
+    return next(error);
+  }
+};
 
 /**
  * Get menu by user.

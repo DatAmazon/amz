@@ -8,7 +8,7 @@ import { Suspense, useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation } from 'react-router';
 
-import { getMenuList } from '@/api/system/menu-api';
+import { getMenuByUser } from '@/api/system/menu-api';
 import { setUserItem } from '@/stores/users/user.store';
 import { getFirstPathCode } from '@/utils/get-first-path';
 import { getGlobalState } from '@/utils/get-global-state';
@@ -17,6 +17,7 @@ import { useGuide } from '../guide/useGuide';
 import HeaderComponent from './header';
 import MenuComponent from './menu';
 import TagsView from './tagView';
+import { getGroupPermissionByUser } from '@/api/system/group-api';
 
 const { Sider, Content } = Layout;
 const WIDTH = 992;
@@ -60,7 +61,7 @@ const LayoutPage: FC = () => {
   };
 
   const fetchMenuList = useCallback(async () => {
-    const { result, status } = await getMenuList();
+    const { result, status } = await getMenuByUser();
     if (status) {
       setMenuList(result.data);
       dispatch(

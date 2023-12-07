@@ -1,4 +1,5 @@
 module.exports = {
+  TOKEN_TYPE: "Bearer",
   // HTTP Status Codes
   STATUS: {
     ACCEPTED: 202,

@@ -42,4 +42,23 @@ const listToTree = (data, options) => {
     return tree;
 };
 
-module.exports = { getPagination, filterGrid, listToTree };
+const fmDate = (day) => {
+    let yyyy = day.getFullYear();
+    let mm = day.getMonth() + 1; // Months start at 0!
+    let dd = day.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    return dd.toString() + mm.toString() + yyyy.toString();
+}
+const getDbName = () => {
+    var date = new Date();
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    const first = fmDate(firstDay);
+    const last = fmDate(lastDay);
+    return 'mtvan_' + first + '_' + last;
+}
+
+module.exports = { getPagination, filterGrid, listToTree, getDbName };

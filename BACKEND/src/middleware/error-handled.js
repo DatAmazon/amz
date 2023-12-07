@@ -1,6 +1,7 @@
 const { ValidationError } = require('express-validation');
 const { APIError, ResposeApiModel } = require('../extensions/response-pattern');
 const { env } = require('../config/configuration-env');
+const { STATUS } = require('../extensions/constants-manager');
 
 /**
  * Error Handler Sends Stack Trace only during Development Environment
@@ -49,7 +50,7 @@ exports.ConvertError = (err, req, res, next) => {
   } else if (!(err instanceof APIError)) {
     ConvertedError = new APIError({
       message: err.message,
-      status: err.status,
+      status: err.status ?? STATUS.BAD_REQUEST,
       stack: err.stack,
     });
   }

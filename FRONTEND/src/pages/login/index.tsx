@@ -36,7 +36,7 @@ const LoginForm: FC = () => {
   return (
     <div className="login-page">
       <Form<LoginParams> layout="vertical" onFinish={onFinished} className="login-page-form" initialValues={initialValues}>
-        <img src={MinvoiceLogo} width={220} height={160} alt="" />
+        <img src={MinvoiceLogo} style={{objectFit:"contain", width:"100%", height:"100%"}} alt="" />
         <Form.Item hasFeedback label="Tài khoản" name="username" rules={[{ required: true, message: formatMessage({ id: 'gloabal.tips.enterUsernameMessage', }), },]}>
           <Input prefix={<UserOutlined />} placeholder={formatMessage({ id: 'gloabal.tips.username', })} />
         </Form.Item>

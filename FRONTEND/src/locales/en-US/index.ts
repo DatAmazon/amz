@@ -10,6 +10,8 @@ import { enUS_avatorDropMenu } from './user/avatorDropMenu';
 import { enUS_tagsViewDropMenu } from './user/tagsViewDropMenu';
 import { enUS_title } from './user/title';
 import { enUS_GridUser } from './user/userGrid';
+import { enUS_GridGroupPermission } from './group-permission/group-permission-grid';
+import { enUS_MenuPermissionTree } from './group-permission/menu-permission-tree';
 const en_US = {
   ...enUS_account,
   ...enUS_avatorDropMenu,
@@ -23,6 +25,8 @@ const en_US = {
   ...en_US_documentation,
   ...enUS_notice,
   ...en_US_component,
+  ...enUS_GridGroupPermission,
+  ...enUS_MenuPermissionTree
 };
 
 export default en_US;

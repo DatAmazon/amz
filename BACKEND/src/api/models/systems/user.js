@@ -55,6 +55,18 @@ const UserModel = new Schema({
     type: Boolean,
     default: true,
   },
+  group: {
+    code: {
+      type: String,
+      require: true,
+      trim: true,
+    },
+    name: {
+      type: String,
+      require: true,
+      trim: true,
+    },
+  }
 }, { timestamps: true });
 
 /**
@@ -91,6 +103,7 @@ UserModel.method({
       exp: moment().add(jwtExpirationInterval, 'minutes').unix(),
       iat: moment().unix(),
       sub: this._id,
+      groupPermission: this.group.code
     };
     return Jwt.sign(playload, jwtSecret);
   },

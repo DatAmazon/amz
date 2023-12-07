@@ -1,6 +1,9 @@
 const { omit } = require('lodash');
 const Menus = require('../../models/systems/menu');
+const { listToTree } = require('../../../extensions/function-extension');
 const ObjectId = require('mongoose').Types.ObjectId;
+
+exports.GetAllMenu = async () => await Menus.getAllMenu();
 
 exports.GetMenuByUser = async () => await Menus.getMenuByUser();
 

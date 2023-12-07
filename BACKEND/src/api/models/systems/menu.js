@@ -3,7 +3,6 @@ const { APIError } = require('../../../extensions/response-pattern');
 const { STATUS, VALIDATION_ERROR, NO_RECORD_FOUND } = require('../../../extensions/constants-manager');
 const { listToTree } = require('../../../extensions/function-extension');
 const { uuid } = require('uuidv4');
-
 const menus = new Schema({
     menuId: {
         type: String,
@@ -63,10 +62,17 @@ menus.statics = {
         if (!data) throw new APIError({ message: NO_RECORD_FOUND, status: STATUS.NOT_FOUND });
         return data;
     },
+    async getAllMenu() {
+        // const data = await this.find().lean().exec();
+        const data = await this.find().limit(2).lean().exec();
+
+        if (!data) throw new APIError({ message: NO_RECORD_FOUND, status: STATUS.NOT_FOUND });
+        return listToTree(data, { idKey: "menuId", parentId: "parentId", childrenKey: "children" });
+    },
     async getMenuByUser() {
         const data = await this.find().lean().exec();
         if (!data) throw new APIError({ message: NO_RECORD_FOUND, status: STATUS.NOT_FOUND });
-        return  listToTree(data, { idKey: "menuId", parentId: "parentId" });
+        return listToTree(data, { idKey: "menuId", parentId: "parentId" });
     },
     /**
    * Return Validation Error
@@ -90,4 +96,4 @@ menus.statics = {
 /**
  * @typedef Menu
  */
-module.exports = model('menus', menus);
+module.exports = model('menus', menus, 'menus');
